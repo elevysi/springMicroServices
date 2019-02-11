@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form action="#" th:action="@{/posts/edit/{id}(id=${post.id})}" th:object="${post}" method="post">
+	<form action="#" th:action="@{/ui/posts/edit/{id}(id=${post.id})}" th:object="${post}" method="post">
 		<input type="hidden" th:field="*{id}" id="id">
 	    <label for="name">Content</label>
 	    <input type="text" th:field="*{content}" id="content" placeholder="content">

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form action="#" th:action="@{/posts/add}" th:object="${post}" method="post">
+	<form action="#" th:action="@{/ui/posts/add}" th:object="${post}" method="post">
 	    <label for="name">Content</label>
 	    <input type="text" th:field="*{content}" id="content" placeholder="content">
 	    <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
@@ -14,7 +14,7 @@
 	    <input type="submit" value="Add Post">
 	</form>
 
-	<p><a href="/posts">List of Posts</a></p>
+	<p><a href="/ui/posts">List of Posts</a></p>
 
 </body>
 </html>

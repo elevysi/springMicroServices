@@ -7,7 +7,7 @@
 <body>
 
 	<div th:switch="${posts}">
-	    <h2 th:case="null">No posts yet!</h2>
+	    <h2 th:case="null">No posts found!</h2>
 	        <div th:case="*">
 	            <h2>Posts</h2>
 	            <table>
@@ -23,8 +23,8 @@
 	                <tr th:each="post : ${posts}">
 	                    <td th:text="${post.id}"></td>
 	                    <td th:text="${post.content}"></td>
-	                    <td><a th:href="@{/posts/edit/{id}(id=${post.id})}">Edit</a></td>
-	                    <td><a th:href="@{/posts/delete/{id}(id=${post.id})}">Delete</a></td>
+	                    <td><a th:href="@{/ui/posts/edit/{id}(id=${post.id})}">Edit</a></td>
+	                    <td><a th:href="@{/ui/posts/delete/{id}(id=${post.id})}">Delete</a></td>
 	                </tr>
 	            </tbody>
 	        </table>
