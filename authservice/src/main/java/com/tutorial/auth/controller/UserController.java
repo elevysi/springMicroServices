@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -45,6 +46,24 @@ public class UserController {
 	public String users(Model model){
 		model.addAttribute("users", userService.findAll());
 		return "usersIndex";
+	}
+	
+	
+	@GetMapping("/edit/{id}")
+	public String editUser(Model model, @PathVariable("id") Long id){
+		User user = userService.findByID(id);
+		model.addAttribute("user", user);
+		return "editUser";
+	}
+	
+	@PostMapping("/edit/{id}")
+	public String doEditUser(Model model, @Valid User user, BindingResult result, @PathVariable("id") Long id){
+		if(result.hasErrors()){
+			return "editUser";
+		}
+		
+		userService.save(user);
+		return "redirect:/ui/users/";
 	}
 	
 

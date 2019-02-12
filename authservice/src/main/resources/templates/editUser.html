@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit User</title>
+</head>
+<body>
+
+
+	<form action="#" th:action="@{/ui/users/edit}" th:object="${user}" method="post">
+	
+	
+		<input type="hidden" th:field="*{id}" id="id">
+	    
+	    <label for="username">Username</label>
+	    <input type="text" th:field="*{username}" id="content" placeholder="username">
+	    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+	    
+	    <label for="username">Password</label>
+	    <input type="text" th:field="*{password}" id="content" placeholder="password">
+	    <span th:if="${#fields.hasErrors('password')}" th:errors="password"></span>
+	    
+	    <label for="username">First Name</label>
+	    <input type="text" th:field="*{firstName}" id="content" placeholder="firstName">
+	    <span th:if="${#fields.hasErrors('firstName')}" th:errors="firstName"></span>
+	    
+	    
+	    <label for="username">Last Name</label>
+	    <input type="text" th:field="*{lastName}" id="content" placeholder="lastName">
+	    <span th:if="${#fields.hasErrors('lastName')}" th:errors="lastName"></span>
+	    
+	    <label for="username">Email</label>
+	    <input type="text" th:field="*{email}" id="content" placeholder="email">
+	    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+	   
+	    <input type="submit" value="Add User">
+	</form>
+
+	<p><a href="/ui/users/">List of Users</a></p>
+
+</body>
+</html>

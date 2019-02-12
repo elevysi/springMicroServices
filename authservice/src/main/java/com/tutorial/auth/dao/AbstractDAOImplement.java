@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public class AbstractDAOImplement<E, K> implements AbstractDAO<E, K>{
+public abstract class AbstractDAOImplement<E, K> implements AbstractDAO<E, K>{
 	
 	@PersistenceContext
 	private EntityManager em;

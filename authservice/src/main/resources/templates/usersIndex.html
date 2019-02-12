@@ -29,10 +29,10 @@
 	                    <td th:text="${user.username}"></td>
 	                    <td th:text="${user.password}"></td>
 	                    <td th:text="${user.email}"></td>
-	                    <td th:text="${post.firstName}"></td>
-	                    <td th:text="${post.lastName}"></td>
-	                    <td><a th:href="@{/ui/users/edit/{id}(id=${post.id})}">Edit</a></td>
-	                    <td><a th:href="@{/ui/users/delete/{id}(id=${post.id})}">Delete</a></td>
+	                    <td th:text="${user.firstName}"></td>
+	                    <td th:text="${user.lastName}"></td>
+	                    <td><a th:href="@{/ui/users/edit/{id}(id=${user.id})}">Edit</a></td>
+	                    <td><a th:href="@{/ui/users/delete/{id}(id=${user.id})}">Delete</a></td>
 	                </tr>
 	            </tbody>
 	        </table>

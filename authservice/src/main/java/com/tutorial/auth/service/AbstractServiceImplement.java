@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tutorial.auth.dao.AbstractDAO;
 
 @Service
-public class AbstractServiceImplement<E, K> implements AbstractService<E, K>{
+public abstract class AbstractServiceImplement<E, K> implements AbstractService<E, K>{
 	
 	@Autowired
 	private AbstractDAO<E, K> abstractDAO;

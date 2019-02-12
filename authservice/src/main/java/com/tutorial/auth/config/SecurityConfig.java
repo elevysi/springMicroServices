@@ -1,9 +1,11 @@
 package com.tutorial.auth.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 //Hybrid Security Configuration
 
@@ -15,6 +17,9 @@ public class SecurityConfig {
 	@Configuration
 	public static class FormSecurityConfig extends WebSecurityConfigurerAdapter{
 		
+		
+		private UserDetailsService userDetailsService;
+		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception{
 			
@@ -23,8 +28,8 @@ public class SecurityConfig {
 				.and()
 				.authorizeRequests()
 				.antMatchers("/").permitAll()
-//				.antMatchers("/ui/public/**").permitAll()
-				.antMatchers("/ui/**").permitAll()
+				.antMatchers("/ui/public/**").permitAll()
+//				.antMatchers("/ui/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin().permitAll()
@@ -39,6 +44,13 @@ public class SecurityConfig {
 				.antMatchers("/css/**")
 				;
 		}
+		
+//		@Autowired
+	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	        auth.userDetailsService(userDetailsService)
+//	        .passwordEncoder(bCryptPasswordEncoder())
+	        ;
+	    }
 		
 	}
 
