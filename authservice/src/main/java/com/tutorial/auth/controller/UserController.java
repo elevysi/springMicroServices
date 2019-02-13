@@ -38,7 +38,7 @@ public class UserController {
 			return "addUser";
 		}
 		
-		userService.save(user);
+		userService.registerUser(user);
 		return "redirect:/ui/users/";
 	}
 	
