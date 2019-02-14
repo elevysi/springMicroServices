@@ -1,3 +1,4 @@
+#application.yml
 server:
   port: 1000
 spring:
@@ -5,3 +6,15 @@ spring:
     url: jdbc:mysql://localhost:3306/basicdb
     username: root
     password: root
+    
+security:
+  oauth2:
+    client:
+      clientId: web
+      clientSecret: root
+      scope:
+        read
+      accessTokenUri: http://localhost:2000/oauth/token
+      userAuthorizationUri: http://localhost:2000/oauth/authorize
+    resource:
+      userInfoUri: http://localhost:2000/api/user

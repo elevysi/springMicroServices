@@ -1,30 +1,57 @@
 package com.tutorial.auth.config;
 
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 //Hybrid Security Configuration
 
 @Configuration
 public class SecurityConfig {
 	
+	@Configuration
+	@Order(10)
+	@EnableResourceServer
+	public static class ResourceServerConfig extends ResourceServerConfigurerAdapter{
+		
+		private static final String  RESOURCE_ID = "authorizationResourceApi";
+		
+		@Override
+        public void configure(ResourceServerSecurityConfigurer resources) {
+                resources.resourceId(RESOURCE_ID).stateless(false);
+        }
+
+        @Override
+		public void configure(HttpSecurity http) throws Exception{
+		    http
+		    .requestMatchers().antMatchers("/api/**")
+		    .and()
+		    .authorizeRequests()
+		      .anyRequest().authenticated();
+		}
+		
+	}
+	
 	
 	@Configuration
+	@Order(20)
 	public static class FormSecurityConfig extends WebSecurityConfigurerAdapter{
-		
 
-		
 		@Autowired
-	    private DataSource dataSource;
+		private CustomUserDetailsService customUserDetailsService;
+		
 		
 		
 		@Bean
@@ -37,14 +64,16 @@ public class SecurityConfig {
 		protected void configure(HttpSecurity http) throws Exception{
 			
 			http.requestMatchers()
-				.antMatchers("/" , "/ui/**", "/login")
+				.antMatchers("/" , "/ui/**", "/login", "/oauth2/**")
 				.and()
 				.authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/ui/public/**").permitAll()
+				.antMatchers("/oauth/authorize/**").hasAnyRole("USER", "CLIENT")
 				.anyRequest().authenticated()
 				.and()
 				.formLogin().permitAll()
+				.loginPage("/login")
 				;
 			
 		}
@@ -56,22 +85,27 @@ public class SecurityConfig {
 				.antMatchers("/css/**")
 				;
 		}
-	
+		
+		@Override
+	    @Bean
+	    public AuthenticationManager authenticationManagerBean() throws Exception {
+	        return super.authenticationManagerBean();
+	    }
 	    
+	    	
+	    @Bean
+	    public DaoAuthenticationProvider authenticationProvider(){
+	    	DaoAuthenticationProvider authenticattionProvider = new DaoAuthenticationProvider();
+	    	authenticattionProvider.setUserDetailsService(customUserDetailsService);
+	    	authenticattionProvider.setPasswordEncoder(passwordEncoder());
+	    	
+	    	return authenticattionProvider;
+	    }
 	    
 	    @Override
-	    protected void configure(AuthenticationManagerBuilder auth)
-	            throws Exception {
-	        auth.
-	                jdbcAuthentication()
-	                .usersByUsernameQuery("select username, password, active from users where username=?")
-	                .authoritiesByUsernameQuery("select u.email, r.name from users u "
-	                		+ "inner join user_groups ug on(u.id=ug.user_id) "
-	                		+ "inner join group_roles gr on(ug.group_id=gr.id)"
-	                		+ "inner join roles r on(gr.role_id=r.id) where u.username=?")
-	                .dataSource(dataSource)
-	                .passwordEncoder(passwordEncoder())
-	                ;
+	    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	    	auth.parentAuthenticationManager(authenticationManagerBean()).userDetailsService(customUserDetailsService);
+	        auth.authenticationProvider(authenticationProvider());
 	    }
 		
 	}
