@@ -1,4 +1,4 @@
-package com.tutorial.auth.config;
+package com.tutorial.common;
 
 import java.util.Collection;
 

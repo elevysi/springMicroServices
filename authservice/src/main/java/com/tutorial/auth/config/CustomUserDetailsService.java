@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.tutorial.auth.dao.UserDAO;
 import com.tutorial.auth.model.Group;
 import com.tutorial.auth.model.Role;
+import com.tutorial.common.UserPrincipal;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{

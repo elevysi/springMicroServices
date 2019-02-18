@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tutorial.auth.config.UserPrincipal;
+import com.tutorial.common.UserPrincipal;
 
 @Controller
 @RequestMapping("/api")

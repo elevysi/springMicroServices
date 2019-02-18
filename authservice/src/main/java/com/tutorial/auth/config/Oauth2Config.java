@@ -50,9 +50,10 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter{
 			  .scopes("read", "write").resourceIds("authorizationResourceApi")
 //			  .secret("secret")
 			  .secret("$2a$10$YkTbWNA/jGQqvSEZwDqJOOdjXGNFjttY3HslAUCFJO2u/3ObNGUCK") //root
+			  .redirectUris("http://localhost:1000")
 			  .accessTokenValiditySeconds(120)//Access token is only valid for 2 minutes.
 			  .refreshTokenValiditySeconds(600)//Refresh token is only valid for 10 minutes.
-	
+//			  .autoApprove(true)
 	          ;
 	 }
 	

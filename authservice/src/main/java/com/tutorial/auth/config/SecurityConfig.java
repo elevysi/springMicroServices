@@ -64,16 +64,14 @@ public class SecurityConfig {
 		protected void configure(HttpSecurity http) throws Exception{
 			
 			http.requestMatchers()
-				.antMatchers("/" , "/ui/**", "/login", "/oauth2/**")
+				.antMatchers("/" , "/ui/**", "/login", "/oauth/authorize")
 				.and()
 				.authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/ui/public/**").permitAll()
-				.antMatchers("/oauth/authorize/**").hasAnyRole("USER", "CLIENT")
 				.anyRequest().authenticated()
 				.and()
 				.formLogin().permitAll()
-				.loginPage("/login")
 				;
 			
 		}
