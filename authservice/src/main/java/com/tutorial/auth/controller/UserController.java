@@ -1,5 +1,7 @@
 package com.tutorial.auth.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +14,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.auth.model.User;
+import com.tutorial.auth.service.ApiService;
 import com.tutorial.auth.service.UserService;
+import com.tutorial.common.dto.PostDTO;
 
 @Controller
 @RequestMapping("/ui/users")
 public class UserController {
 	
 	private UserService userService;
+	private ApiService apiService;
 	
 	@Autowired
-	public UserController(UserService userService){
+	public UserController(UserService userService, ApiService apiService){
 		this.userService = userService;
+		this.apiService = apiService;
 	}
 	
 	@GetMapping("/add")
@@ -64,6 +70,16 @@ public class UserController {
 		
 		userService.save(user);
 		return "redirect:/ui/users/";
+	}
+	
+	@GetMapping("/posts")
+	public String posts(Model model){
+		
+		//Get the latest Posts from the basic service
+		List<PostDTO> posts = apiService.getLatestPosts();
+		model.addAttribute("posts", posts);
+		
+		return "posts";
 	}
 	
 

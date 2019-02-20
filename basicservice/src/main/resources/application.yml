@@ -11,6 +11,8 @@ spring:
     url: jdbc:mysql://localhost:3306/basicdb
     username: root
     password: root
+  application:
+    name: basicservice
     
 security:
   oauth2:
@@ -23,3 +25,12 @@ security:
       userAuthorizationUri: http://localhost:2000/oauth/authorize
     resource:
       userInfoUri: http://localhost:2000/api/user
+      
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

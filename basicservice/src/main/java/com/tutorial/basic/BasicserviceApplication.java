@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+
 public class BasicserviceApplication {
 	
 //	private static final Logger logger = Logger.getLogger(BasicserviceApplication.class);

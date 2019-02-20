@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 
-		private static final String RESOURCE_ID = "basicServiceAPi";
+		private static final String RESOURCE_ID = "basicServiceApi";
 		
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources){

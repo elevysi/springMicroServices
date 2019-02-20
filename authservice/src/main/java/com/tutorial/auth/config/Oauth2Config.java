@@ -44,7 +44,8 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter{
 	 public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 	
 	      clients.inMemory()
-	          .withClient("web")
+	          
+	      	  .withClient("web")
 			  .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit", "client_credentials")
 			  .authorities("ROLE_CLIENT")
 			  .scopes("read", "write").resourceIds("authorizationResourceApi")
@@ -53,7 +54,20 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter{
 			  .redirectUris("http://localhost:1000")
 			  .accessTokenValiditySeconds(120)//Access token is only valid for 2 minutes.
 			  .refreshTokenValiditySeconds(600)//Refresh token is only valid for 10 minutes.
-//			  .autoApprove(true)
+			  .autoApprove(true)
+			  
+			  .and()
+			  
+			  .withClient("auth")
+			  .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit", "client_credentials")
+			  .authorities("ROLE_CLIENT")
+			  .scopes("read", "write").resourceIds("basicServiceApi")
+//			  .secret("secret")
+			  .secret("$2a$10$YkTbWNA/jGQqvSEZwDqJOOdjXGNFjttY3HslAUCFJO2u/3ObNGUCK") //root
+			  .redirectUris("http://localhost:2000")
+			  .accessTokenValiditySeconds(120)//Access token is only valid for 2 minutes.
+			  .refreshTokenValiditySeconds(600)//Refresh token is only valid for 10 minutes.
+			  .autoApprove(true)
 	          ;
 	 }
 	
