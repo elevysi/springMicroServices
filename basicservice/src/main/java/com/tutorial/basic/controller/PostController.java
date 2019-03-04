@@ -1,7 +1,10 @@
 package com.tutorial.basic.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,16 +14,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.basic.model.Post;
+import com.tutorial.basic.service.ApiService;
 import com.tutorial.basic.service.PostService;
+import com.tutorial.common.dto.UserDTO;
 
 @Controller
 @RequestMapping(value="/ui/posts/")
 public class PostController {
 	
 	private PostService postService;
+	private ApiService apiService;
 	
-	public PostController(PostService postService){
+	@Autowired
+	public PostController(PostService postService, ApiService apiService){
 		this.postService = postService;
+		this.apiService = apiService;
 	}
 	
 	@GetMapping(value="/")
@@ -81,6 +89,15 @@ public class PostController {
 			postService.deletePost(post);
 		}
 		return "redirect:/ui/posts/";
+	}
+	
+	@GetMapping("/users")
+	public String getUsers(Model model){
+		
+		List<UserDTO> users = apiService.getUsers();
+		model.addAttribute("users", users);
+		return "users"; 
+		
 	}
 	
 	

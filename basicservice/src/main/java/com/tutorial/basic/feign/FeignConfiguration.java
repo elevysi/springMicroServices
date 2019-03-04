@@ -1,4 +1,4 @@
-package com.tutorial.auth.feign;
+package com.tutorial.basic.feign;
 
 
 import java.util.Arrays;
