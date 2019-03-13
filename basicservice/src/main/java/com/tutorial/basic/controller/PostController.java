@@ -91,15 +91,13 @@ public class PostController {
 		return "redirect:/ui/posts/";
 	}
 	
-	@GetMapping("/users")
-	public String getUsers(Model model){
+	@GetMapping("/allUsers")
+	public String getAllUsers(Model model){
 		
-		List<UserDTO> users = apiService.getUsers();
+		List<UserDTO> users = apiService.getAllUsers();
 		model.addAttribute("users", users);
 		return "users"; 
 		
 	}
-	
-	
 
 }

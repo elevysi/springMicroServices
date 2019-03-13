@@ -1,5 +1,7 @@
 package com.tutorial.auth.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,11 @@ public class UserService extends AbstractServiceImplement<User, Long>{
 		}
 		
 		return userDAO.save(user);
+	}
+	
+	
+	public List<User> getActiveUsers(){
+		return userDAO.getActiveUsers();
 	}
 	
 }

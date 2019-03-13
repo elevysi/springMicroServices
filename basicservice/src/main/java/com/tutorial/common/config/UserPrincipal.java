@@ -1,4 +1,4 @@
-package com.tutorial.common;
+package com.tutorial.common.config;
 
 import java.util.Collection;
 

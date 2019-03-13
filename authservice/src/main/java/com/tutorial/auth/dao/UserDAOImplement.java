@@ -46,4 +46,17 @@ public class UserDAOImplement extends AbstractDAOImplement<User, Long> implement
 		
 		return null;
 	}
+	
+	
+	public List<User> getActiveUsers(){
+		
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> root = criteria.from(User.class);
+		
+		Predicate predicate = builder.equal(root.get("active"), true);
+		criteria.where(predicate);
+		TypedQuery<User> query = em.createQuery(criteria);
+		return query.getResultList();
+	}
 }

@@ -13,16 +13,7 @@ spring:
     password: root
   application:
     name: authservice
-    
-    
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+
 security:
   oauth2:
     client:
@@ -33,4 +24,13 @@ security:
       accessTokenUri: http://localhost:2000/oauth/token
       userAuthorizationUri: http://localhost:2000/oauth/authorize
     resource:
-      userInfoUri: http://localhost:2000/api/user
+      userInfoUri: http://localhost:2000/api/user    
+    
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

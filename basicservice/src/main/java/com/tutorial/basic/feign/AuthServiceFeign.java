@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.tutorial.common.dto.UserDTO;
 
-@FeignClient(name="authservice", configuration=FeignConfiguration.class)
+@FeignClient(contextId = "AuthCodeAuthClient", name="authservice", configuration=FeignConfiguration.class)
 public interface AuthServiceFeign {
 	
-	@GetMapping("/api/users")
-	List <UserDTO> getUsers();
+	@GetMapping("/api/allUsers")
+	List <UserDTO> getAllUsers();
 
 }

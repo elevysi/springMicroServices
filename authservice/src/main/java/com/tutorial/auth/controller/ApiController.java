@@ -37,8 +37,14 @@ public class ApiController {
 		return userInfo;
 	}
 	
-	@GetMapping("/users")
-	public @ResponseBody List<User> getUsers(){
+	@GetMapping("/activeUsers")
+	public @ResponseBody List<User> getPublicUsers(){
+		return userService.getActiveUsers();
+	}
+	
+	
+	@GetMapping("/allUsers")
+	public @ResponseBody List<User> getAllUsers(){
 		return userService.findAll();
 	}
 

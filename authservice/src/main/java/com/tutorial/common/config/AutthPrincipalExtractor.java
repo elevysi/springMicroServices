@@ -1,4 +1,4 @@
-package com.tutorial.basic.config;
+package com.tutorial.common.config;
 
 import org.springframework.stereotype.Component;
 
