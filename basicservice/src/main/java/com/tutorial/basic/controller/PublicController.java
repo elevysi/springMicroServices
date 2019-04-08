@@ -29,7 +29,7 @@ public class PublicController {
 	
 	@GetMapping("/posts")
 	public String getPublicPosts(Model model){
-		List<Post> posts = postService.getPosts();
+		List<Post> posts = postService.findAll();
 		model.addAttribute("posts", posts);
 		return "indexPosts";
 	}

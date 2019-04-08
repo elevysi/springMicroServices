@@ -73,13 +73,6 @@
 		</dependency> 
 		
 		
-		<!-- Feign -->
-		
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-		
 <!-- 		Oauth2 -->
 
 		<dependency>
@@ -117,10 +110,31 @@
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 			<version>1.4.6.RELEASE</version>
 		</dependency>
+
+		<!-- Feign -->
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 			
+		<!-- Model Mappper -->
+		
+		<dependency>
+			<groupId>com.github.jmnarloch</groupId>
+			<artifactId>modelmapper-spring-boot-starter</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 
-			<!-- 		Test -->
 
+		<!-- Hystrix -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-hystrix</artifactId>
+			<version>1.4.6.RELEASE</version>
+		</dependency>
+
+		<!-- 		Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

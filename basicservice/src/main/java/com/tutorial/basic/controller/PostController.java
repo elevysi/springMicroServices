@@ -34,7 +34,7 @@ public class PostController {
 	@GetMapping(value="/")
 	public String posts(Model model){
 		
-		model.addAttribute("posts", postService.getPosts());
+		model.addAttribute("posts", postService.findAll());
 		return "indexPosts";
 	}
 	
@@ -54,14 +54,14 @@ public class PostController {
 			return "addPost";
 		}
 		
-		postService.savePost(post);
+		postService.save(post);
 		return "redirect:/ui/posts/";
 	}
 	
 	
 	@GetMapping(value="/edit/{id}")
 	public String editPost(Model model, @PathVariable("id")Long id){
-		Post post = postService.getPost(id);
+		Post post = postService.findByID(id);
 		if(post != null){
 			model.addAttribute("post", post);
 			return "editPost";
@@ -77,16 +77,16 @@ public class PostController {
 			return "editPost";
 		}
 		
-		postService.editPost(post);
+		postService.edit(post);
 		return "redirect:/ui/posts/";
 	}
 	
 	
 	@GetMapping(value="/delete/{id}")
 	public String deletePost(Model model, @PathVariable("id")Long id){
-		Post post = postService.getPost(id);
+		Post post = postService.findByID(id);
 		if(post != null){
-			postService.deletePost(post);
+			postService.delete(post);
 		}
 		return "redirect:/ui/posts/";
 	}

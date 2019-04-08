@@ -24,7 +24,7 @@ public class ApiController{
 	
 	@GetMapping("/latestPosts")
 	public @ResponseBody List<Post> getLatestPosts(){
-		return postService.getPosts();
+		return postService.findAll();
 	}
 
 }
