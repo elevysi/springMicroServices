@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -111,5 +112,63 @@ public class SecurityConfig {
 	    }
 		
 	}
+	
+	
+	
+	/**
+     * For Social Login
+     * @author elvis.hatungimana
+     *
+     */
+    
+    @Configuration
+    @Order(30)
+    public static class Oauth2FormWebSecurityConfig extends WebSecurityConfigurerAdapter {
+    	
+	    	@Autowired
+	    	private CustomUserDetailsService userDetailsService;
+	    	
+//	    	@Autowired
+//	    	private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+//	    	
+//	    	
+//	    	@Autowired
+//	    	private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+	    	
+//	      @Bean
+//	      public HttpSessionOAuth2AuthorizationRequestRepository authorizationRequestRepository() {
+//	          return new HttpSessionOAuth2AuthorizationRequestRepository();
+//	      }
+	      
+	      
+	    @Override
+        protected void configure(HttpSecurity http) throws Exception {
+        	
+	        	http
+	        	.requestMatchers()
+	        		.antMatchers("/oauth2/**")
+			.and()
+	    		.authorizeRequests()
+	    		.antMatchers("/oauth2/**").permitAll()
+		    		.anyRequest().authenticated()
+		    		.and()
+	           		.oauth2Login()
+	           		.redirectionEndpoint()
+	           			.baseUri("/oauth2/callback/*")
+//	           			.baseUri("/ui/admin/dashboard")
+//	           		.and()		
+//	           			.authorizationEndpoint()
+	//           				.baseUri("oauth2/authorize")
+//	           				.authorizationRequestRepository(authorizationRequestRepository())
+	           				.and()
+	    				.userInfoEndpoint()
+	    					.userService(userDetailsService)
+    					.and()
+//    					.successHandler(oAuth2AuthenticationSuccessHandler)
+//    					.failureHandler(oAuth2AuthenticationFailureHandler)
+//    					.and().cors()	
+    					;
+        }
+    }
 
 }

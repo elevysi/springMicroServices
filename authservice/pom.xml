@@ -76,6 +76,13 @@
 			<version>2.1.2.RELEASE</version>
 		</dependency>
 		
+		<!-- For Social Login Configurations -->
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-client</artifactId>
+		</dependency>
+
 		<!-- 		Web and Views		 -->
 		
 		<dependency>
