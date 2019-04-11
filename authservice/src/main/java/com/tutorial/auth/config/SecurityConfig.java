@@ -2,7 +2,6 @@ package com.tutorial.auth.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -125,20 +123,8 @@ public class SecurityConfig {
     @Order(30)
     public static class Oauth2FormWebSecurityConfig extends WebSecurityConfigurerAdapter {
     	
-	    	@Autowired
-	    	private CustomUserDetailsService userDetailsService;
-	    	
-//	    	@Autowired
-//	    	private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-//	    	
-//	    	
-//	    	@Autowired
-//	    	private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-	    	
-//	      @Bean
-//	      public HttpSessionOAuth2AuthorizationRequestRepository authorizationRequestRepository() {
-//	          return new HttpSessionOAuth2AuthorizationRequestRepository();
-//	      }
+    	@Autowired
+    	private CustomUserDetailsService userDetailsService;
 	      
 	      
 	    @Override
@@ -155,18 +141,10 @@ public class SecurityConfig {
 	           		.oauth2Login()
 	           		.redirectionEndpoint()
 	           			.baseUri("/oauth2/callback/*")
-//	           			.baseUri("/ui/admin/dashboard")
-//	           		.and()		
-//	           			.authorizationEndpoint()
-	//           				.baseUri("oauth2/authorize")
-//	           				.authorizationRequestRepository(authorizationRequestRepository())
 	           				.and()
 	    				.userInfoEndpoint()
 	    					.userService(userDetailsService)
     					.and()
-//    					.successHandler(oAuth2AuthenticationSuccessHandler)
-//    					.failureHandler(oAuth2AuthenticationFailureHandler)
-//    					.and().cors()	
     					;
         }
     }

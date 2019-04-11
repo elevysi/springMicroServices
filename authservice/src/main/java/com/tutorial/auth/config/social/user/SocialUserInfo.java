@@ -1,4 +1,4 @@
-package com.tutorial.auth.config.social;
+package com.tutorial.auth.config.social.user;
 
 import java.util.Map;
 

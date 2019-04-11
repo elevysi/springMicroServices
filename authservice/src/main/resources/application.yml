@@ -26,8 +26,8 @@ spring:
             scope:
                 - email
                 - public_profile
-#            redirect-uri-template: http://localhost:8100/login/oauth2/code/facebook
-            redirect-uri-template: http://localhost:8100/oauth2/callback/{registrationId}
+#            redirect-uri-template: http://localhost:2000/login/oauth2/code/facebook
+            redirect-uri-template: http://localhost:2000/oauth2/callback/{registrationId}
         provider:
           facebook:
             authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
