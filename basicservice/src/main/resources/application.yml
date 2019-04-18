@@ -12,12 +12,12 @@ spring:
     username: root
     password: root
   application:
-    name: basicservice
+    name: basicService
     
 security:
   oauth2:
     client:
-      clientId: web
+      clientId: basicService
       clientSecret: root
       scope:
         read

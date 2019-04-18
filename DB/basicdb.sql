@@ -1,0 +1,8 @@
+CREATE TABLE basicdb /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE basicdb;
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` mediumtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

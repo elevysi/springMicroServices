@@ -58,6 +58,13 @@
 			<artifactId>spring-cloud-security</artifactId>
 		</dependency> 
 		
+		<!-- For Actuator Info  -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
 <!-- 		Oauth2 -->
 
 <!-- 			<version>2.3.4.RELEASE</version> -->

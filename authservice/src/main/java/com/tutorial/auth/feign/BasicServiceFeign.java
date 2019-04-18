@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.tutorial.common.dto.PostDTO;
 
-@FeignClient(name="basicservice", configuration=FeignConfiguration.class)
+@FeignClient(name="basicService", configuration=FeignConfiguration.class)
 public interface BasicServiceFeign {
 	
 	@GetMapping("/api/latestPosts")
