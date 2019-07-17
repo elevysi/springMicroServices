@@ -1,5 +1,7 @@
 package com.tutorial.auth.config;
 
+import java.util.Arrays;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
 @EnableAuthorizationServer
 public class Oauth2Config extends AuthorizationServerConfigurerAdapter{
+	
+	private static final String SIGNING_KEY = "SharedSecret";
 	
 	@Autowired
 	private DataSource dataSource;
@@ -29,6 +34,9 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter{
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private JWTTokenEnhancer jwtTokenEnhancer;
 	
 	@Bean
     public JdbcTokenStore tokenStore() {
@@ -55,14 +63,20 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter{
 	
 	@Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		
+		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtTokenEnhancer, accessTokenConverter()));
+		
 		endpoints
 	      .authenticationManager(this.authenticationManager)
 	      .tokenStore(tokenStore())
-         .accessTokenConverter(accessTokenConverter());
+	      .tokenEnhancer(tokenEnhancerChain);
     }
 	 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
-    	return new JwtAccessTokenConverter();
+    	JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+	    converter.setSigningKey(SIGNING_KEY);
+	    return converter;
     }
 }

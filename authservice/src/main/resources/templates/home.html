@@ -7,12 +7,18 @@
 <body>
 	Hello World, I am the Authentication Service!
 	<br/>
-	<a href="/ui/public/users/">Public Resource</a>
-	<a href="/ui/users/">Protected Resource</a>
-	<a href="/ui/users/posts">Posts from Basic Service</a>
+	<h2>Public Resources</h2>
+	<a href="/ui/public/users/">Public Local Resource - Users</a>
+	<br/>
+	<a href="/ui/public/posts">Posts from Basic Service - Client Credentials Flow</a>
 	
 	<hr />
+	<h2>Restricted Resources</h2>
+	<a href="/ui/users/">Protected Resource - Users</a>
+	<br/>
+	<a href="/ui/users/posts">Posts from Basic Service - Authorization code Flow</a>
 	
+	<h2>Social Login</h2>
 	<a href="/oauth2/authorization/facebook">
 		<span class="g-hidden-xs-down">Login with</span> Facebook
 	</a>

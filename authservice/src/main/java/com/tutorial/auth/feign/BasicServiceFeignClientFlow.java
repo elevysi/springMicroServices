@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.tutorial.common.dto.PostDTO;
 
-@FeignClient(contextId = "AuthCodeBasicClient", name="basicService", configuration=FeignConfiguration.class)
-public interface BasicServiceFeign {
-	
+@FeignClient(contextId = "clientFlowBasicClient", name="basicService", configuration=FeignClientConfiguration.class)
+public interface BasicServiceFeignClientFlow {
 	@GetMapping("/api/latestPosts")
 	List <PostDTO> getLatestPosts();
-
 }

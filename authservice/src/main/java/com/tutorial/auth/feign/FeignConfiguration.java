@@ -24,8 +24,7 @@ public class FeignConfiguration {
 	
     @Value("${security.oauth2.client.scope}")
     private String scope;
-    
-    
+	
     @Bean
     public OAuth2FeignRequestInterceptor oAuth2FeignRequestInterceptor(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails details) {
             return new OAuth2FeignRequestInterceptor(oauth2ClientContext,details);

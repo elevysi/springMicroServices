@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Component
-public class AutthPrincipalExtractor implements PrincipalExtractor{
+public class AuthPrincipalExtractor implements PrincipalExtractor{
 
     
     
