@@ -49,13 +49,10 @@ public class SecurityConfig {
 	
 	@Configuration
 	@Order(20)
-//	@EnableOAuth2Client
 	public static class FormSecurityConfig extends WebSecurityConfigurerAdapter{
 
 		@Autowired
 		private CustomUserDetailsService customUserDetailsService;
-		
-		
 		
 		@Bean
 	    public BCryptPasswordEncoder passwordEncoder() {
@@ -74,7 +71,7 @@ public class SecurityConfig {
 				.antMatchers("/ui/public/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.formLogin().permitAll()
+				.formLogin().permitAll().loginPage("/login")
 				;
 			
 		}
@@ -132,20 +129,19 @@ public class SecurityConfig {
         	
 	        	http
 	        	.requestMatchers()
-	        		.antMatchers("/oauth2/**")
+	        		.antMatchers("/social/**")
 			.and()
 	    		.authorizeRequests()
-	    		.antMatchers("/oauth2/**").permitAll()
+	    		.antMatchers("/social/**").permitAll()
 		    		.anyRequest().authenticated()
 		    		.and()
 	           		.oauth2Login()
-	           		.redirectionEndpoint()
-	           			.baseUri("/oauth2/callback/*")
-	           				.and()
-	    				.userInfoEndpoint()
-	    					.userService(userDetailsService)
-    					.and()
-    					;
+	           		.authorizationEndpoint().baseUri("/social/authorization")
+	           		.and()
+	           		.redirectionEndpoint().baseUri("/social/callback")
+       				.and()
+    				.userInfoEndpoint().userService(userDetailsService)
+				;
         }
     }
 

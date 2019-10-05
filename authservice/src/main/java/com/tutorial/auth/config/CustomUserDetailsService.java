@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -31,13 +33,14 @@ import com.tutorial.auth.model.Group;
 import com.tutorial.auth.model.Role;
 import com.tutorial.auth.model.User;
 import com.tutorial.auth.service.GroupService;
-import com.tutorial.common.UserPrincipal;
+import com.tutorial.common.config.UserPrincipal;
 
 @Service
 public class CustomUserDetailsService extends DefaultOAuth2UserService implements UserDetailsService{
 	
 	private UserDAO userDAO;
 	private GroupService groupService;
+	private Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 	
 	@Autowired
 	public CustomUserDetailsService(UserDAO userDAO, GroupService groupService){
@@ -49,7 +52,9 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 try{
+                	logger.info("Loading the user");
 	                User domainUser = userDAO.loadByUsername(username);
+	                logger.info("Finished Loading the user");
 	                return this.create(domainUser);
                 }catch(UsernameNotFoundException e){
                     throw new RuntimeException(e);
@@ -57,6 +62,7 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
     }
 	
 	public UserPrincipal create(User user, Map<String, Object> attributes) {
+		
         UserPrincipal userPrincipal =  this.create(user);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;
@@ -64,6 +70,7 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
 	
 	public UserPrincipal create(User user){
 		
+		logger.info("Creating the user whose status is "+user.isActive());
 		
 		boolean enabled = user.isActive();
         boolean accountNonExpired = user.isActive();

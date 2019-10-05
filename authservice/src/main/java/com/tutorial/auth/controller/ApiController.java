@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tutorial.auth.model.User;
 import com.tutorial.auth.service.UserService;
-import com.tutorial.common.UserPrincipal;
+import com.tutorial.common.config.UserPrincipal;
 
 @Controller
 @RequestMapping("/api")
@@ -27,12 +27,15 @@ public class ApiController {
 	}
 	
 	@GetMapping("/user")
-	public @ResponseBody Map<String, Object> user(Principal userPrincipal){
+	public @ResponseBody Map<String, Object> user(Principal principal){
 		Map<String, Object> userInfo = new HashMap<String, Object>();
+		UserPrincipal userPrincipal = userService.getCurrentUser();
 		
-//		userInfo.put("email", userPrincipal.getEmail());
-//		userInfo.put("authorities", userPrincipal.getAuthorities());
-		userInfo.put("user", userPrincipal.getName());
+		userInfo.put("username", userPrincipal == null? "" : userPrincipal.getUsername());
+		userInfo.put("email", userPrincipal == null? "" : userPrincipal.getEmail());
+		userInfo.put("isEnabled", userPrincipal == null? "" : userPrincipal.isEnabled());
+		userInfo.put("authorities", userPrincipal == null? "" : userPrincipal.getAuthorities());
+		userInfo.put("user", principal.getName());
 		
 		return userInfo;
 	}
