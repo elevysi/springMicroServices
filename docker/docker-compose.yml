@@ -1,0 +1,30 @@
+version: '2.2'
+services:
+  basicdb:
+      image: mysql:5.7
+      environment:
+          MYSQL_DATABASE: basicdb
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+      mem_limit: 500000000
+      cpus: '2'
+      volumes:
+          - "./my.cnf:/etc/mysql/conf.d/config-file.cnf"
+          - "./basicdb:/var/lib/mysql:rw"
+      ports:
+          - "3317:3306"
+  authenticationdb:
+      image: mysql:5.7
+      environment:
+          MYSQL_DATABASE: authdb
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+      mem_limit: 500000000
+      cpus: '2'
+      volumes:
+          - "./my.cnf:/etc/mysql/conf.d/config-file.cnf"
+          - "./authdb:/var/lib/mysql:rw"
+      ports:
+          - "3318:3306"

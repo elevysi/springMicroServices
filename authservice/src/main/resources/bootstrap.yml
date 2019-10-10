@@ -1,0 +1,15 @@
+server:
+  port: 2000
+  servlet:
+#    context-path: /authservice
+    session:
+      cookie:
+        name: TUTORIALAUTHSESSION
+    
+spring:
+  application:
+    name: authenticationService
+  cloud:
+    config:
+      uri: http://localhost:3000
+      enabled: true

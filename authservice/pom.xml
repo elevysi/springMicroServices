@@ -143,6 +143,13 @@
 			<artifactId>spring-cloud-starter-hystrix</artifactId>
 			<version>1.4.6.RELEASE</version>
 		</dependency>
+		
+		<!-- Configuration Client -->
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
 
 	</dependencies>
 	
