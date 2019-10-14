@@ -112,8 +112,8 @@ services:
       OAUTH2CLIENTID: authenticationService
       OAUTH2CLIENTSECRET: root
       OAUTH2CLIENTSCOPE: read
-      FACEBOOKAPPID: 306620526617980
-      FACEBOOKAPPSECRET: ee1f6814664923f64a425466d5d80802
+      FACEBOOKAPPID: yourFacebookAPPID
+      FACEBOOKAPPSECRET: yourFacebookAPPSecret
     networks:
           - network-course
 
