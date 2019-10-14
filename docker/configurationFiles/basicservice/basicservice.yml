@@ -1,6 +1,12 @@
+#basicservice.yml
+server:
+  servlet:
+    session:
+      cookie:
+        name: TUTORIALBASESESSION
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/basicdb?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3317/basicdb?useSSL=false&serverTimezone=UTC
     username: root
     password: root
     

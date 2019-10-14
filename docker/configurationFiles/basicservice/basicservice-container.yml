@@ -1,30 +1,27 @@
-#application.yml
+#basicservice-container.yml
 server:
-  port: 1000
   servlet:
-#    context-path: /basicservice
     session:
       cookie:
         name: TUTORIALBASESESSION
 spring:
+  profiles: container
   datasource:
-    url: jdbc:mysql://localhost:3306/basicdb?serverTimezone=UTC
-    username: root
-    password: root
-  application:
-    name: basicService
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASESERVER_PORT}/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     
 security:
   oauth2:
     client:
-      clientId: basicService
-      clientSecret: root
+      clientId: ${OAUTH2CLIENTID}
+      clientSecret: ${OAUTH2CLIENTSECRET}
       scope:
-        read
-      accessTokenUri: http://localhost:2000/oauth/token
-      userAuthorizationUri: http://localhost:2000/oauth/authorize
+        ${OAUTH2CLIENTSCOPE}
+      accessTokenUri: ${AUTHENTICATIONSERVICE_CONTAINER_URI}/oauth/token
+      userAuthorizationUri: ${AUTHENTICATIONSERVICE_URI}/oauth/authorize
     resource:
-      userInfoUri: http://localhost:2000/api/user
+      userInfoUri: ${AUTHENTICATIONSERVICE_CONTAINER_URI}/api/user
       
 eureka:
   instance:
@@ -33,4 +30,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${DISCOVERY_URL}

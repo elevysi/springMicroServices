@@ -7,18 +7,17 @@ spring:
      config:
        server:
            native:
-               searchLocations: file:////Users/elvo/Documents/Projects/Courses/WebSecurity/springMicroServices/docker/configurationFiles/authenticationService,
-                                file:////Users/elvo/Documents/Projects/Courses/WebSecurity/springMicroServices/docker/configurationFiles/basicservice,
-                                file:////Users/elvo/Documents/Projects/Courses/WebSecurity/springMicroServices/docker/configurationFiles/discoveryservice                            
+#               searchLocations: file:////Users/elvo/Documents/Projects/Courses/WebSecurity/springMicroServices/docker/configurationFiles/authenticationService,
+#                                file:////Users/elvo/Documents/Projects/Courses/WebSecurity/springMicroServices/docker/configurationFiles/basicservice,
+#                                file:////Users/elvo/Documents/Projects/Courses/WebSecurity/springMicroServices/docker/configurationFiles/discoveryservice                            
                                
                                
-#               searchLocations:
-#                               file:///configfiles/authservice,
-#                               file:///configfiles/basicservice,
-#                               file:///configfiles/discoveryservice
+               searchLocations:
+                               file:///configfiles/authenticationservice,
+                               file:///configfiles/basicservice,
+                               file:///configfiles/discoveryservice
 
 logging:
   level:
     com.netflix: WARN
     org.springframework.web: WARN
-    com.thoughtmechanix: DEBUG
