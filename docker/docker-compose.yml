@@ -1,0 +1,122 @@
+version: '2.2'
+services:
+  basicdb:
+      image: mysql:5.7
+      environment:
+          MYSQL_DATABASE: basicdb
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+      mem_limit: 500000000
+      cpus: '2'
+      volumes:
+          - "./my.cnf:/etc/mysql/conf.d/config-file.cnf"
+          - "./basicdb:/var/lib/mysql:rw"
+      ports:
+          - "3317:3306"
+      networks:
+          - network-course
+  authenticationdb:
+      image: mysql:5.7
+      environment:
+          MYSQL_DATABASE: authdb
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+      mem_limit: 500000000
+      cpus: '2'
+      volumes:
+          - "./my.cnf:/etc/mysql/conf.d/config-file.cnf"
+          - "./authdb:/var/lib/mysql:rw"
+      ports:
+          - "3318:3306"
+      networks:
+          - network-course
+   
+  eurekadiscoveryservice:
+   image:   course/eurekadiscoveryservice:0.0.1
+   mem_limit: 1073741824
+   cpus: '2'
+   ports:
+       - "8761:8761"
+   environment:
+       PROFILE: "container"
+       SERVER_PORT: "8761"
+   networks:
+          - network-course
+          
+  configurationserver:
+    image: course/configurationserver:0.0.1
+    mem_limit: 500000000
+    cpus: '1'
+    volumes:
+          - "./configurationFiles:/configfiles"
+    ports:
+       - "3000:3000"
+    environment:
+       PROFILE: "native"
+       SERVER_PORT: "3000"
+    networks:
+          - network-course
+  
+  basicservice:
+    image: course/basicservice:0.0.1
+    mem_limit: 1073741824
+    cpus: '2'
+    depends_on:
+      - basicdb
+    ports:
+      - "1000:1000"
+    environment:
+      PROFILE: "container"
+      SERVER_PORT: "1000"
+      CONFIGSERVER_URI: "http://configurationserver:3000"
+      DISCOVERY_URL: "http://eurekadiscoveryservice:8761/eureka/"
+      DISCOVERYSERVICE_PORT:        "8761"
+      AUTHENTICATIONSERVICE_URI: http://localhost:2000
+      AUTHENTICATIONSERVICE_CONTAINER_URI: http://authenticationservice:2000
+      DATABASESERVER_PORT:      "3306"
+      DATABASE_HOST: "basicdb"
+      DATABASE_USER: "root"
+      DATABASE_PASSWORD: "root"
+      DATABASE_NAME: "basicdb"
+      CONFIGSERVER_PORT: "3000"
+      OAUTH2CLIENTID: basicService
+      OAUTH2CLIENTSECRET: root
+      OAUTH2CLIENTSCOPE: read
+    networks:
+          - network-course
+  
+  authenticationservice:
+    image: course/authenticationservice:0.0.1
+    mem_limit: 1073741824
+    cpus: '2'
+    depends_on:
+      - authenticationdb
+    ports:
+      - "2000:2000"
+    environment:
+      PROFILE: "container"
+      SERVER_PORT: "2000"
+      CONFIGSERVER_URI: "http://configurationserver:3000"
+      DISCOVERY_URL: "http://eurekadiscoveryservice:8761/eureka/"  
+      DISCOVERYSERVICE_PORT:        "8761"
+      AUTHENTICATIONSERVICE_URI: http://localhost:2000
+      AUTHENTICATIONSERVICE_CONTAINER_URI: http://authenticationservice:2000
+      DATABASESERVER_PORT:      "3306"
+      DATABASE_HOST: "authenticationdb"
+      DATABASE_USER: "root"
+      DATABASE_PASSWORD: "root"
+      DATABASE_NAME: "authdb"
+      CONFIGSERVER_PORT: "3000"
+      OAUTH2CLIENTID: authenticationService
+      OAUTH2CLIENTSECRET: root
+      OAUTH2CLIENTSCOPE: read
+      FACEBOOKAPPID: ${FACEBOOK_CLIENT_ID}
+      FACEBOOKAPPSECRET: ${FACEBOOK_CLIENT_SECRET}
+    networks:
+          - network-course
+
+networks:
+  network-course:
+    driver: bridge
