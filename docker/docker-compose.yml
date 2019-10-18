@@ -112,8 +112,8 @@ services:
       OAUTH2CLIENTID: authenticationService
       OAUTH2CLIENTSECRET: root
       OAUTH2CLIENTSCOPE: read
-      FACEBOOKAPPID: yourFacebookAPPID
-      FACEBOOKAPPSECRET: yourFacebookAPPSecret
+      FACEBOOKAPPID: ${FACEBOOK_CLIENT_ID}
+      FACEBOOKAPPSECRET: ${FACEBOOK_CLIENT_SECRET}
     networks:
           - network-course
 

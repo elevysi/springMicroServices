@@ -1,0 +1,53 @@
+server:
+  servlet:
+    session:
+      cookie:
+        name: TUTORIALAUTHSESSION
+    
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASESERVER_PORT}/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  application:
+    name: authenticationService
+
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: ${FACEBOOKAPPID}
+            client-secret: ${FACEBOOKAPPSECRET}
+            provider: facebook
+            scope:
+                - email
+                - public_profile
+            redirect-uri-template: ${AUTHENTICATIONSERVICE_URI}/oauth2/callback/{registrationId}
+        provider:
+          facebook:
+            authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
+            tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
+            userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
+
+security:
+  oauth2:
+    client:
+      clientId: ${OAUTH2CLIENTID}
+      clientSecret: ${OAUTH2CLIENTSECRET}
+      scope:
+        ${OAUTH2CLIENTSCOPE}
+      accessTokenUri: ${AUTHENTICATIONSERVICE_CONTAINER_URI}/oauth/token
+      userAuthorizationUri: ${AUTHENTICATIONSERVICE_URI}/oauth/authorize
+    resource:
+      userInfoUri: ${AUTHENTICATIONSERVICE_CONTAINER_URI}/api/user    
+    
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${DISCOVERY_URL}

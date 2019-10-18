@@ -21,7 +21,7 @@ echo "*******  Configuration Server has started"
 echo "********************************************************"
 echo "Starting Basic Service with Configuration Service via Eureka :  $DISCOVERYSERVICE_URI ON PORT: $SERVER_PORT"
 echo "********************************************************"
-java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
+java -Dserver.port=$SERVER_PORT   \
 -Deureka.client.serviceUrl.defaultZone=$DISCOVERYSERVICE_URI             \
 -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
 -Dspring.profiles.active=$PROFILE -jar /usr/local/basicservice/app.jar
